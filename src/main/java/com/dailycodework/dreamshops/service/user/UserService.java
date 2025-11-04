@@ -9,6 +9,7 @@ import com.dailycodework.dreamshops.request.CreateUserRequest;
 import com.dailycodework.dreamshops.request.UserUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,9 +25,11 @@ public class UserService implements IUserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User getUserById(Long userId) {
-        return userRepository.findById(userId)
+    @Cacheable(value = "users", key = "#root.args[0]")
+    public UserDto getUserById(Long userId) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+        return convertUserToDto(user);
     }
 
     @Override

@@ -7,7 +7,7 @@ import com.dailycodework.dreamshops.request.UserUpdateRequest;
 
 public interface IUserService {
 
-    User getUserById(Long userId);
+    UserDto getUserById(Long userId);
     User createUser(CreateUserRequest request);
     User updateUser(UserUpdateRequest request, Long userId);
     void deleteUser(Long userId);

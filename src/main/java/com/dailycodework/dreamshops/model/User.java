@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
+import org.springframework.data.redis.core.RedisHash;
 
 import java.util.Collection;
 import java.util.HashSet;
